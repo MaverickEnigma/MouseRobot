@@ -1,0 +1,9 @@
+C:\Users\Taylor Collins\Desktop\MouseBot\MouseBot\bin\Debug\MouseBot.exe
+C:\Users\Taylor Collins\Desktop\MouseBot\MouseBot\bin\Debug\MouseBot.pdb
+C:\Users\Taylor Collins\Desktop\MouseBot\MouseBot\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Taylor Collins\Desktop\MouseBot\MouseBot\obj\x86\Debug\MouseBot.mouseBot_Form.resources
+C:\Users\Taylor Collins\Desktop\MouseBot\MouseBot\obj\x86\Debug\MouseBot.Properties.Resources.resources
+C:\Users\Taylor Collins\Desktop\MouseBot\MouseBot\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\Taylor Collins\Desktop\MouseBot\MouseBot\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\Taylor Collins\Desktop\MouseBot\MouseBot\obj\x86\Debug\MouseBot.exe
+C:\Users\Taylor Collins\Desktop\MouseBot\MouseBot\obj\x86\Debug\MouseBot.pdb
