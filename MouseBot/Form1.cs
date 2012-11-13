@@ -17,16 +17,16 @@ namespace MouseBot
         public Timer time = new Timer();
         public long old;
         public long check;
+        bool pause=false;
         public FileInfo file;
-        int waitTime=1;
+        int waitTime=10;
+        long bytes=0;
         long temp;
-        IPv4InterfaceProperties thing;//Exploratory addition
+        NetworkInterface[] networks = NetworkInterface.GetAllNetworkInterfaces();
         int timeHolder=0;
         Stopwatch watch = new Stopwatch();
         DirectoryInfo dir;
         bool offcycle = false;
-        string file1 = "";
-        Process proc = new Process();
         StreamWriter writer;
         public mouseBot_Form()
         {
@@ -35,22 +35,17 @@ namespace MouseBot
             openFileDialog1 = new OpenFileDialog();
         }
 
+
         private void btn_Go_Click(object sender, EventArgs e)
-        {
-            IPv4InterfaceStatistics dunno;
+        {    
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                file1 = openFileDialog1.FileName;
                 file = new FileInfo(@"C:\Users\Taylor Collins\Documents\Untitled.tpp");
-                proc = Process.Start(file1);
-              
                 time.Start();
                 watch.Start();
                 old = dir.GetFiles().Length;
                 time.Interval = 15000;
                 time.Tick += new EventHandler(time_Tick);
-                temp = file.Length;
-                
             }
         }
 
@@ -62,25 +57,28 @@ namespace MouseBot
         /// <param name="myEventArg"></param>
         private void time_Tick(Object myObject,EventArgs myEventArg)
         {
+            bytes = 0;
+            foreach (NetworkInterface n in networks)
+            {
+                bytes += n.GetIPv4Statistics().BytesReceived;
+            }
             using (writer = new StreamWriter(@"C:\Users\Taylor Collins\Documents\School\SeniorProj\outtimes.txt", true))
             {
-
                 if (offcycle && watch.ElapsedMilliseconds > (waitTime*1000))
-                    //Process.Start(@"C:\Users\Taylor Collins\Documents\MouseRobot Tasks\Samples\QQ.xtsk");
-
+                    Process.Start(@"C:\Users\Taylor Collins\Documents\MouseRobot Tasks\Samples\PP.xtsk");
                
                 check = dir.GetFiles().Length;
                 if (check <= old)
                 {
-                    //if (!(temp <= file.Length))
-                    //    proc.Start();
-                    //    return;
                     if (!offcycle)
                     {
+                        // This instance should always be pausing the crawl.
                         Process.Start(@"C:\Users\Taylor Collins\Documents\MouseRobot Tasks\Samples\PP.xtsk");
+                        pause = true;
                         timeHolder = time.Interval;
                         writer.WriteLine(Convert.ToInt32(time.Interval.ToString()) / 1000);
                         writer.WriteLine("After " + watch.Elapsed.Seconds);
+                        writer.WriteLine("Using " + bytes);
                         watch.Restart();
                         offcycle = true;
                         time.Interval = 3000;
@@ -89,6 +87,13 @@ namespace MouseBot
                     }
                     else
                     {
+                        waitTime += 2;
+                        //If the program is running and not moving forward it should be paused again.
+                        if (!pause)
+                        {
+                            Process.Start(@"C:\Users\Taylor Collins\Documents\MouseRobot Tasks\Samples\PP.xtsk");
+                            pause = true;
+                        }
                         return;
                     }
 
@@ -100,7 +105,7 @@ namespace MouseBot
                     btn_Go.ForeColor = System.Drawing.Color.Crimson;
                     writer.WriteLine("Restarted after " + watch.Elapsed);
                     time.Interval = timeHolder;
-                    proc.Start();
+                    Process.Start(@"C:\Users\Taylor Collins\Documents\MouseRobot Tasks\Samples\PP.xtsk");
                 }
                 else
                 {
