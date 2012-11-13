@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Task xmlns="http://automationbox.com/sh/xtsk/v1" MinMatch="70">
+  <SearchUI Command="{MKEY LEFT,CLICK}">
+    <Object>
+      <ObjectSearchInfo Name="Pause_CHECKBUTTON_{C561497E-A6AA-4D52-ADA0-150D7BD8F45E}">
+        <Object Module="pro.exe" ModuleSize="942080" Class="Afx:400000:b:10003:6:5004ad" Name="Untitled.tpp - Teleport Pro" Role="WINDOW" State="SIZEABLE;MOVEABLE;FOCUSABLE" Text="Untitled.tpp - Teleport Pro">
+          <RootRect Left="0" Top="0" Right="1030" Bottom="637"/>
+          <Childs Count="4"/>
+        </Object>
+        <Object Role="CLIENT" State="FOCUSABLE">
+          <RootRect Left="8" Top="50" Right="1022" Bottom="629"/>
+          <Neigbours>
+            <Top Module="" ModuleSize="0" Class="" Name="Application" Role="MENUBAR" State="FOCUSABLE" Text="" ShortCut="Alt" Description="Contains commands to manipulate the current view or document">
+              <RootRect Left="8" Top="30" Right="1022" Bottom="49"/>
+            </Top>
+          </Neigbours>
+          <Childs Count="4"/>
+        </Object>
+        <Object Class="AfxControlBar42s" Name="Toolbar" Role="WINDOW" Text="Toolbar">
+          <RootRect Left="8" Top="50" Right="1022" Bottom="80"/>
+          <Neigbours>
+            <Bottom Module="" ModuleSize="0" Class="AfxMDIFrame42s" Name="" Role="WINDOW" Text="">
+              <RootRect Left="8" Top="80" Right="1022" Bottom="610"/>
+            </Bottom>
+          </Neigbours>
+          <Childs Count="1"/>
+        </Object>
+        <Object Role="CLIENT">
+          <RootRect Left="8" Top="52" Right="1022" Bottom="80"/>
+          <Childs Count="2"/>
+        </Object>
+        <Object Class="ToolbarWindow32" Role="WINDOW">
+          <RootRect Left="8" Top="50" Right="386" Bottom="82"/>
+          <Neigbours>
+            <Right Module="" ModuleSize="0" Class="ToolbarWindow32" Name="Thread Bar" Role="WINDOW" Text="Thread Bar">
+              <RootRect Left="523" Top="50" Right="769" Bottom="82"/>
+            </Right>
+          </Neigbours>
+          <Childs Count="1"/>
+        </Object>
+        <Object Role="TOOLBAR">
+          <RootRect Left="16" Top="55" Right="378" Bottom="77"/>
+          <Childs Count="19"/>
+        </Object>
+        <Object Name="Pause" Role="CHECKBUTTON" State="UNKNOWN" DefaultAction="Press" ParentId="13">
+          <InnerPoint X="13" Y="10"/>
+          <RootRect Left="232" Top="55" Right="255" Bottom="77"/>
+          <Neigbours>
+            <Left Module="" ModuleSize="0" Class="" Name="" Role="CHECKBUTTON" Text="" DefaultAction="Press" ParentId="12">
+              <RootRect Left="209" Top="55" Right="232" Bottom="77"/>
+            </Left>
+            <Right Module="" ModuleSize="0" Class="" Name="" Role="CHECKBUTTON" State="UNKNOWN" Text="" DefaultAction="Press" ParentId="14">
+              <RootRect Left="255" Top="55" Right="278" Bottom="77"/>
+            </Right>
+          </Neigbours>
+          <Image>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
+HIVl96sB/wdeLI8sbsgE2AAAAABJRU5ErkJggg==</Image>
+        </Object>
+      </ObjectSearchInfo>
+    </Object>
+  </SearchUI>
+</Task>
