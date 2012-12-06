@@ -21,10 +21,13 @@ namespace MouseBot
         public FileInfo file;
         int waitTime=10;
         long bytes=0;
+        bool stop = false;
         long temp;
+        int starter = 1;
         NetworkInterface[] networks = NetworkInterface.GetAllNetworkInterfaces();
         int timeHolder=0;
         Stopwatch watch = new Stopwatch();
+        Stopwatch totalLength=new Stopwatch();
         DirectoryInfo dir;
         bool offcycle = false;
         StreamWriter writer;
@@ -37,21 +40,30 @@ namespace MouseBot
 
 
         private void btn_Go_Click(object sender, EventArgs e)
-        {    
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+        {    //Select the .tpp file to watch what TeleportPro is adding
+            if (!stop)
             {
-                file = new FileInfo(@"C:\Users\Taylor Collins\Documents\Untitled.tpp");
-                time.Start();
-                watch.Start();
-                old = dir.GetFiles().Length;
-                time.Interval = 15000;
-                time.Tick += new EventHandler(time_Tick);
+                if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    file = new FileInfo(@"C:\Users\Taylor Collins\Documents\Untitled.tpp");
+                    temp = file.Length;
+                    time.Start();
+                    watch.Start();
+                    totalLength.Start();
+                    old = dir.GetFiles().Length;
+                    time.Interval = 300000;
+                    time.Tick += new EventHandler(time_Tick);
+                    stop = true;
+                }
+                else
+                    this.Close();
             }
+
         }
 
 
         /// <summary>
-        /// Timer event.  Keeps occuring until timer is stopped, even if event is not passed 
+        /// Timer event.  Keeps occuring until timer is stopped. 
         /// </summary>
         /// <param name="myObject"></param>
         /// <param name="myEventArg"></param>
@@ -64,11 +76,22 @@ namespace MouseBot
             }
             using (writer = new StreamWriter(@"C:\Users\Taylor Collins\Documents\School\SeniorProj\outtimes.txt", true))
             {
-                if (offcycle && watch.ElapsedMilliseconds > (waitTime*1000))
+                if (offcycle && watch.ElapsedMilliseconds > (waitTime * 1000))
+                {
                     Process.Start(@"C:\Users\Taylor Collins\Documents\MouseRobot Tasks\Samples\PP.xtsk");
-               
+                    if (waitTime > 1200)
+                        Process.Start(@"C:\Users\Taylor Collins\Documents\MouseRobot Tasks\Samples\QQ.xtsk");
+                }
+              
+                if (starter - 1 == 0)// =>? starter-- > 0
+                {
+                    writer.WriteLine("\n\nBeginning Run");
+                    starter = 0;
+                }
+                else { }
+
                 check = dir.GetFiles().Length;
-                if (check <= old)
+                if (check <= old&&file.Length<=temp)
                 {
                     if (!offcycle)
                     {
@@ -76,18 +99,19 @@ namespace MouseBot
                         Process.Start(@"C:\Users\Taylor Collins\Documents\MouseRobot Tasks\Samples\PP.xtsk");
                         pause = true;
                         timeHolder = time.Interval;
-                        writer.WriteLine(Convert.ToInt32(time.Interval.ToString()) / 1000);
-                        writer.WriteLine("After " + watch.Elapsed.Seconds);
-                        writer.WriteLine("Using " + bytes);
+                        writer.WriteLine(Convert.ToInt32(time.Interval.ToString()) / 1000+" second interval");
+                        writer.WriteLine("After " + watch.Elapsed.Seconds+" seconds");
+                        writer.WriteLine("Using " + bytes+" bytes");
                         watch.Restart();
                         offcycle = true;
-                        time.Interval = 3000;
+                        time.Interval = (waitTime*1000);
                         btn_Go.ForeColor = System.Drawing.Color.CadetBlue;
                         return;
                     }
                     else
                     {
                         waitTime += 2;
+                        time.Interval += 5000;
                         //If the program is running and not moving forward it should be paused again.
                         if (!pause)
                         {
@@ -112,7 +136,8 @@ namespace MouseBot
                     time.Interval += 2000;
                 }
                 offcycle = false;
-                old = file.Length;
+                old = dir.GetFiles().Length;
+                temp = file.Length;
             }
         }
 
@@ -123,8 +148,15 @@ namespace MouseBot
 
         private void mouseBot_Form_FormClosing(object sender, FormClosingEventArgs e)
         {
+            using (writer = new StreamWriter(@"C:\Users\Taylor Collins\Documents\School\SeniorProj\outtimes.txt", true))
+            {
+                writer.WriteLine("Total Run Time" + totalLength.Elapsed);
+                writer.WriteLine("Longest wait Time:" +waitTime);
+            }
             writer.Close();
+
         }
 
+        
     }
 }
