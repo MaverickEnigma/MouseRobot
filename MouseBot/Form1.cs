@@ -19,7 +19,7 @@ namespace MouseBot
         public long check;
         bool pause=false;
         public FileInfo file;
-        int waitTime=10;
+        int waitTime=15;
         long bytes=0;
         bool stop = false;
         long temp;
@@ -54,10 +54,13 @@ namespace MouseBot
                     time.Interval = 300000;
                     time.Tick += new EventHandler(time_Tick);
                     stop = true;
+                    btn_Go.Text = "Stop";
                 }
                 else
                     this.Close();
             }
+            else
+                this.Close();
 
         }
 
